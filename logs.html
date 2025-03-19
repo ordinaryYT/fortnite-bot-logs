@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs</title>
+    <style>
+        /* General Styling */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .log-container {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .log-item {
+            font-size: 1rem;
+            color: #a0a0a0;
+            margin-bottom: 5px;
+            padding: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .clear-button {
+            background-color: #ff4d4d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .clear-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logs</h1>
+    <div class="log-container">
+        <div id="logs"></div>
+    </div>
+    <button class="clear-button" onclick="clearLogs()">Clear Logs</button>
+
+    <script>
+        // Load logs from localStorage when the page loads
+        function loadLogs() {
+            let logsContainer = document.getElementById("logs");
+            let logs = JSON.parse(localStorage.getItem("logs")) || [];
+            
+            if (logs.length === 0) {
+                logsContainer.innerHTML = "<p>No logs found.</p>";
+            } else {
+                logsContainer.innerHTML = logs.map(log => `<div class="log-item">${log}</div>`).join("");
+            }
+        }
+
+        // Clear logs from localStorage
+        function clearLogs() {
+            localStorage.removeItem("logs");
+            loadLogs();
+        }
+
+        // Load logs on page load
+        window.onload = loadLogs;
+    </script>
+</body>
+</html>
